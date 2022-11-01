@@ -38,7 +38,7 @@ jobs:
           DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
         run: |
           docker buildx build \
-          --platform=linux/amd64,linux/arm64,linux/s390x \
+          --platform=linux/amd64,linux/arm64 \
           --output "type=image,push=true" \
           --file ${{ github.event.inputs.project }}/Dockerfile ./${{ github.event.inputs.project }} \
           --tag $(echo "${DOCKERHUB_USERNAME}" | tr '[:upper:]' '[:lower:]')/${{ github.event.inputs.project }}:latest
