@@ -1,12 +1,7 @@
 FROM golang:latest AS builder
 WORKDIR /root
 COPY x-ui .
-#RUN go build main.go
-RUN last_version=$(curl -Ls "https://api.github.com/repos/FranzKafkaYu/x-ui/releases/latest" | grep '"tag_name":' | sed -E 's/.*"([^"]+)".*/\1/') \
-    && wget -N --no-check-certificate -O /tmp/x-ui-linux-s390x.tar.gz https://github.com/FranzKafkaYu/x-ui/releases/download/${last_version}/x-ui-linux-s390x.tar.gz \
-    && tar zxvf /tmp/x-ui-linux-s390x.tar.gz -C /tmp \
-    && cp -r /tmp/x-ui/* ./ \
-    && chmod +x x-ui bin/xray-linux-s390x
+RUN go build main.go
 
 
 FROM debian:11-slim
